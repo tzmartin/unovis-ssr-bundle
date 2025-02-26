@@ -1,9 +1,17 @@
 {
-  "name": "unovis-ssr-bundle",
+  "name": "@tzmartin/unovis-ssr-bundle",
   "version": "1.0.0",
   "description": "A bundled version of Unovis optimized for server-side rendering (SSR) and static chart generation in headless environments",
   "main": "dist/unovis-bundle.js",
+  "module": "dist/unovis-bundle.esm.js",
+  "types": "dist/types/bundle-entry.d.ts",
   "type": "module",
+  "files": [
+    "dist/",
+    "src/",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "prebuild": "mkdir -p dist",
     "build:unovis": "rollup -c",
@@ -12,11 +20,18 @@
     "watch": "rollup -c -w",
     "test": "bun test",
     "clean": "rm -rf dist chart-gen *.png",
-    "pretest": "bun run build:unovis"
+    "pretest": "bun run build:unovis",
+    "prepare": "bun run build:unovis",
+    "prepublishOnly": "bun run test",
+    "version": "git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YOUR_USERNAME/unovis-ssr-bundle.git"
+    "url": "git+https://github.com/tzmartin/unovis-ssr-bundle.git"
   },
   "keywords": [
     "unovis",
@@ -25,16 +40,20 @@
     "visualization",
     "puppeteer",
     "static-charts",
-    "headless"
+    "headless",
+    "d3",
+    "data-visualization"
   ],
   "author": "YOUR_NAME",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/YOUR_USERNAME/unovis-ssr-bundle/issues"
+    "url": "https://github.com/tzmartin/unovis-ssr-bundle/issues"
   },
-  "homepage": "https://github.com/YOUR_USERNAME/unovis-ssr-bundle#readme",
+  "homepage": "https://github.com/tzmartin/unovis-ssr-bundle#readme",
   "dependencies": {
-    "@unovis/ts": "^1.5.1",
+    "@unovis/ts": "^1.5.1"
+  },
+  "peerDependencies": {
     "puppeteer": "^22.0.0"
   },
   "devDependencies": {
@@ -43,7 +62,8 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "rollup": "^4.12.0",
     "typescript": "^5.3.3",
-    "tslib": "^2.6.2"
+    "tslib": "^2.6.2",
+    "puppeteer": "^22.0.0"
   },
   "engines": {
     "node": ">=18.0.0",

@@ -1,5 +1,9 @@
 # Unovis SSR Bundle
 
+[![npm version](https://badge.fury.io/js/%40tzmartin%2Funovis-ssr-bundle.svg)](https://www.npmjs.com/package/@tzmartin/unovis-ssr-bundle)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/tzmartin/unovis-ssr-bundle/actions/workflows/ci.yml/badge.svg)](https://github.com/tzmartin/unovis-ssr-bundle/actions/workflows/ci.yml)
+
 A bundled version of [Unovis](https://unovis.dev/) optimized for server-side rendering (SSR) and static chart generation in headless environments. This package provides a pre-configured bundle of Unovis components and utilities for generating high-quality PNG visualizations via Puppeteer.
 
 ![Example rendered chart via Puppeteer](./visualization.png)
@@ -55,6 +59,7 @@ The bundle includes the following Unovis components:
 
 ## Installation
 
+### Local Development
 1. Clone the repository
 2. Install dependencies:
 ```bash
@@ -63,6 +68,25 @@ bun install
 
 # Alternative
 pnpm install
+```
+
+### Using as a Dependency
+Install the package from npm:
+
+```bash
+# Using npm
+npm install @tzmartin/unovis-ssr-bundle
+
+# Using yarn
+yarn add @tzmartin/unovis-ssr-bundle
+
+# Using pnpm
+pnpm add @tzmartin/unovis-ssr-bundle
+```
+
+Note: Puppeteer is a peer dependency. If you plan to use the SSR features, you'll need to install it separately:
+```bash
+npm install puppeteer
 ```
 
 ## Building
@@ -127,33 +151,45 @@ unovis-bundle/
 
 ### 1. Browser Usage
 ```html
-<script src="dist/unovis-bundle.js"></script>
-<script>
-  // Access components via the global Unovis object
-  const { XYContainer, Line } = window.Unovis;
-  
-  // Create a simple line chart
-  const data = [
-    { x: 0, y: 10 },
-    { x: 1, y: 15 },
-    { x: 2, y: 8 }
-  ];
+<!-- Using CDN -->
+<script src="https://unpkg.com/@tzmartin/unovis-ssr-bundle"></script>
 
-  const line = new Line({
-    x: d => d.x,
-    y: d => d.y
-  });
-
-  const container = new XYContainer(document.getElementById('vis-container'), {
-    components: [line]
-  }, data);
-</script>
+<!-- Or include locally -->
+<script src="node_modules/@tzmartin/unovis-ssr-bundle/dist/unovis-bundle.js"></script>
 ```
 
-### 2. Server-Side Chart Generation
+### 2. ESM Import
+```javascript
+import { XYContainer, Line } from '@tzmartin/unovis-ssr-bundle';
+
+// Create a simple line chart
+const data = [
+  { x: 0, y: 10 },
+  { x: 1, y: 15 },
+  { x: 2, y: 8 }
+];
+
+const line = new Line({
+  x: d => d.x,
+  y: d => d.y
+});
+
+const container = new XYContainer(document.getElementById('vis-container'), {
+  components: [line]
+}, data);
+```
+
+### 3. Server-Side Chart Generation
 ```bash
-# Generate a chart using the binary
-./chart-gen --input data.json --output chart.png --width 800 --height 600
+# Using the binary directly
+./node_modules/.bin/chart-gen --input data.json --output chart.png --width 800 --height 600
+
+# Or via npm scripts (add to your package.json):
+{
+  "scripts": {
+    "generate-chart": "chart-gen --input data.json --output chart.png"
+  }
+}
 ```
 
 ## Development

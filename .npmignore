@@ -1,0 +1,32 @@
+# Source control
+.git
+.gitignore
+.github
+
+# Development
+test/
+*.test.js
+*.spec.js
+rollup.config.mjs
+tsconfig.json
+.DS_Store
+
+# Build artifacts
+chart-gen
+*.png
+!visualization.png
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Cache
+.cache/
+.temp/
+
+# Environment
+.env* 

@@ -42,4 +42,7 @@ bun.lockb
 
 # Optional: OS specific files
 .DS_Store
-Thumbs.db 
+Thumbs.db
+
+# NPM package files
+*.tgz 
