@@ -1,0 +1,52 @@
+{
+  "name": "unovis-ssr-bundle",
+  "version": "1.0.0",
+  "description": "A bundled version of Unovis optimized for server-side rendering (SSR) and static chart generation in headless environments",
+  "main": "dist/unovis-bundle.js",
+  "type": "module",
+  "scripts": {
+    "prebuild": "mkdir -p dist",
+    "build:unovis": "rollup -c",
+    "build:binary": "bun build ./test/main.js --compile --outfile chart-gen --assets",
+    "build": "bun run prebuild && bun run build:unovis && bun run build:binary",
+    "watch": "rollup -c -w",
+    "test": "bun test",
+    "clean": "rm -rf dist chart-gen *.png",
+    "pretest": "bun run build:unovis"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR_USERNAME/unovis-ssr-bundle.git"
+  },
+  "keywords": [
+    "unovis",
+    "ssr",
+    "charts",
+    "visualization",
+    "puppeteer",
+    "static-charts",
+    "headless"
+  ],
+  "author": "YOUR_NAME",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YOUR_USERNAME/unovis-ssr-bundle/issues"
+  },
+  "homepage": "https://github.com/YOUR_USERNAME/unovis-ssr-bundle#readme",
+  "dependencies": {
+    "@unovis/ts": "^1.5.1",
+    "puppeteer": "^22.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup": "^4.12.0",
+    "typescript": "^5.3.3",
+    "tslib": "^2.6.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "bun": ">=1.0.0"
+  }
+} 
